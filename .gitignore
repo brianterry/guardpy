@@ -30,3 +30,4 @@ Cargo.lock
 
 # Vendor large assets not tracked
 vendor/cloudformation-guard/.git/
+

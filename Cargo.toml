@@ -15,3 +15,4 @@ pyo3 = { version = "0.22", features = ["extension-module", "abi3-py39"] }
 
 [dependencies.cfn-guard]
 path = "vendor/cloudformation-guard/guard"
+
