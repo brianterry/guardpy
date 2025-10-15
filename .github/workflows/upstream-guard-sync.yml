@@ -24,13 +24,14 @@ jobs:
         id: fetch
         run: |
           python - << 'PY'
-          import json, sys, urllib.request
+          import json, urllib.request
           url = 'https://api.github.com/repos/aws-cloudformation/cloudformation-guard/releases/latest'
           with urllib.request.urlopen(url) as r:
               data = json.load(r)
           tag = data['tag_name']
           print(f"tag={tag}")
-          print(f"::set-output name=tag::{tag}")
+          with open("$GITHUB_OUTPUT", "a") as f:
+              f.write(f"tag={tag}\n")
           PY
 
       - name: Read current upstream version
@@ -60,11 +61,11 @@ jobs:
         if: steps.fetch.outputs.tag != steps.current.outputs.current
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: chore: sync cloudformation-guard to ${{ steps.fetch.outputs.tag }}
-          branch: chore/sync-guard-${{ steps.fetch.outputs.tag }}
-          title: chore: sync cloudformation-guard to ${{ steps.fetch.outputs.tag }}
+          commit-message: "chore: sync cloudformation-guard to ${{ steps.fetch.outputs.tag }}"
+          branch: "chore/sync-guard-${{ steps.fetch.outputs.tag }}"
+          title: "chore: sync cloudformation-guard to ${{ steps.fetch.outputs.tag }}"
           body: |
             Updates vendored Guard to `${{ steps.fetch.outputs.tag }}`.
-          labels: chore, dependencies
+          labels: "chore, dependencies"
 
 
