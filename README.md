@@ -18,7 +18,7 @@ maturin develop  # builds and installs into current Python env
 ## Usage
 
 ```python
-import guardpy
+import guardpycfn
 res = guardpy.validate_with_guard("AWSTemplateFormatVersion: '2010-09-09'\nResources: {}\n", None)
 print(res)
 ```
