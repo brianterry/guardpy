@@ -45,8 +45,8 @@ impl<'input> Parser<'input> {
         let mut event = MaybeUninit::<sys::yaml_event_t>::uninit();
         unsafe {
             let parser = addr_of_mut!((*self.pin.ptr).sys);
-            // Read field directly from raw pointer to avoid implicit autoref
-            let error_code = (*parser).error;
+            // Make the raw-pointer reference explicit to satisfy deny(dangerous_implicit_autorefs)
+            let error_code = (&(*parser)).error;
             if error_code != sys::YAML_NO_ERROR {
                 return Err(Error::ParseError("error parsing file".to_string()));
             }
