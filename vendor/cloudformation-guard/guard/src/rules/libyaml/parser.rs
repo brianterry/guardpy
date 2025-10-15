@@ -9,7 +9,7 @@ use crate::rules::{
     Result,
 };
 
-use std::{borrow::Cow, mem::MaybeUninit, ptr::{addr_of, addr_of_mut, read}};
+use std::{borrow::Cow, mem::MaybeUninit, ptr::{addr_of, addr_of_mut}};
 
 use unsafe_libyaml as sys;
 
@@ -45,8 +45,8 @@ impl<'input> Parser<'input> {
         let mut event = MaybeUninit::<sys::yaml_event_t>::uninit();
         unsafe {
             let parser = addr_of_mut!((*self.pin.ptr).sys);
-            // Avoid implicit autoref on raw pointer field by reading the value explicitly
-            let error_code = read(addr_of!((*parser).error));
+            // Read field directly from raw pointer to avoid implicit autoref
+            let error_code = (*parser).error;
             if error_code != sys::YAML_NO_ERROR {
                 return Err(Error::ParseError("error parsing file".to_string()));
             }
