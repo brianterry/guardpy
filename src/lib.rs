@@ -1,5 +1,5 @@
 use pyo3::prelude::*;
-use pyo3::types::{PyAny, PyDict, PyList, PyModule};
+use pyo3::types::{PyAny, PyDict, PyModule};
 use cfn_guard::{run_checks, ValidateInput};
 
 /// Placeholder validate function; will be wired to Guard later.
@@ -24,8 +24,8 @@ fn validate_with_guard(py: Python<'_>, template_content: &str, rules: Option<&st
     match run_checks(data_in, rules_in, verbose) {
         Ok(json_str) => {
             // Prefer structured JSON from guard; parse into Python object
-            let json_mod: &PyAny = py.import_bound("json")?.getattr("loads")?;
-            match json_mod.call1((json_str.as_str(),)) {
+            let json_loads = py.import_bound("json")?.getattr("loads")?;
+            match json_loads.call1((json_str.as_str(),)) {
                 Ok(py_obj) => {
                     result.set_item("success", true)?;
                     result.set_item("result", py_obj)?;
@@ -49,7 +49,7 @@ fn validate_with_guard(py: Python<'_>, template_content: &str, rules: Option<&st
 /// Python module definition
 #[pymodule]
 fn guardpy(py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(validate_with_guard, py)?)?;
+    m.add_function(wrap_pyfunction_bound!(validate_with_guard, m)?)?;
     Ok(())
 }
 
