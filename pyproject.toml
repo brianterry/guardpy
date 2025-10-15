@@ -3,9 +3,9 @@ requires = ["maturin>=1.6,<2"]
 build-backend = "maturin"
 
 [project]
-name = "guardpy"
+name = "guardpycfn"
 version = "0.1.0"
-description = "Python bindings for AWS CloudFormation Guard via pyo3 (scaffold)"
+description = "Python bindings for AWS CloudFormation Guard via pyo3"
 authors = [{ name = "Your Name" }]
 license = { text = "MIT-0" }
 requires-python = ">=3.9"

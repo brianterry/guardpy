@@ -1,4 +1,4 @@
-# guardpy (scaffold)
+# guardpycfn
 
 Python bindings for AWS CloudFormation Guard powered by Rust + pyo3.
 
@@ -7,7 +7,6 @@ Python bindings for AWS CloudFormation Guard powered by Rust + pyo3.
 ```bash
 # Requires Rust toolchain and maturin
 pip install maturin
-cd guardpy
 maturin develop  # builds and installs into current Python env
 
 # Notes:
@@ -18,8 +17,8 @@ maturin develop  # builds and installs into current Python env
 ## Usage
 
 ```python
-import guardpy
-res = guardpy.validate_with_guard("AWSTemplateFormatVersion: '2010-09-09'\nResources: {}\n", None)
+import guardpycfn
+res = guardpycfn.validate_with_guard("AWSTemplateFormatVersion: '2010-09-09'\nResources: {}\n", None)
 print(res)
 ```
 

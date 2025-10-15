@@ -48,7 +48,7 @@ fn validate_with_guard(py: Python<'_>, template_content: &str, rules: Option<&st
 
 /// Python module definition
 #[pymodule]
-fn guardpy(py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
+fn guardpycfn(py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction_bound!(validate_with_guard, m)?)?;
     Ok(())
 }

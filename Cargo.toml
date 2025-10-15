@@ -1,5 +1,5 @@
 [package]
-name = "guardpy"
+name = "guardpycfn"
 version = "0.1.0"
 edition = "2021"
 license = "MIT-0"
@@ -7,7 +7,7 @@ authors = ["Your Name"]
 description = "Python bindings for AWS CloudFormation Guard via pyo3 (scaffold)"
 
 [lib]
-name = "guardpy"
+name = "guardpycfn"
 crate-type = ["cdylib"]
 
 [dependencies]
